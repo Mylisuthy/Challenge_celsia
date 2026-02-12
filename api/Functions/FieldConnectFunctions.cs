@@ -13,15 +13,18 @@ public class FieldConnectFunctions
     private readonly ILogger<FieldConnectFunctions> _logger;
     private readonly IAppointmentRepository _repository;
     private readonly IValidator<AppointmentDTO> _validator;
+    private readonly IAuthService _authService;
 
     public FieldConnectFunctions(
         ILogger<FieldConnectFunctions> logger,
         IAppointmentRepository repository,
-        IValidator<AppointmentDTO> validator)
+        IValidator<AppointmentDTO> validator,
+        IAuthService authService)
     {
         _logger = logger;
         _repository = repository;
         _validator = validator;
+        _authService = authService;
     }
 
     [Function("ValidateNIC")]
@@ -45,8 +48,9 @@ public class FieldConnectFunctions
             return notFoundResponse;
         }
 
+        var token = _authService.GenerateToken(customer);
         var response = req.CreateResponse(HttpStatusCode.OK);
-        await response.WriteAsJsonAsync(new CustomerResponse(customer.NIC, customer.Name));
+        await response.WriteAsJsonAsync(new { customer.NIC, customer.Name, Token = token });
         return response;
     }
 

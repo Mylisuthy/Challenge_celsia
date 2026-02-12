@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Card from '../components/Card';
+import Input from '../components/Input';
+import Button from '../components/Button';
+import { ShieldAlert } from 'lucide-react';
 
 const LoginPage = () => {
     const [nic, setNic] = useState('');
@@ -14,47 +18,53 @@ const LoginPage = () => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:7071/api/validate', { nic });
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/validate`, { nic });
             if (response.status === 200) {
                 localStorage.setItem('customer', JSON.stringify(response.data));
                 navigate('/booking');
             }
         } catch (err) {
-            setError(err.response?.data || 'NIC no válido o no encontrado.');
+            if (err.response?.status === 404) {
+                setError('NIC no encontrado, por favor verifica tu factura.');
+            } else {
+                setError('Ocurrió un error. Inténtalo más tarde.');
+            }
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <h2 className="text-3xl font-extrabold text-primary mb-6">Bienvenido a FieldConnect</h2>
-            <p className="text-gray-600 mb-8">Ingrese su Número de Identificación de Cliente (NIC) para agendar su cita.</p>
-
-            <form onSubmit={handleLogin} className="space-y-6">
-                <div>
-                    <label htmlFor="nic" className="block text-sm font-medium text-gray-700 mb-1">NIC</label>
-                    <input
-                        id="nic"
-                        type="text"
-                        value={nic}
-                        onChange={(e) => setNic(e.target.value)}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
-                        placeholder="Ej: 123456"
-                        required
-                    />
+        <div className="max-w-md mx-auto">
+            <Card>
+                <div className="text-center mb-8">
+                    <div className="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-primary">
+                        <ShieldAlert className="w-8 h-8" />
+                    </div>
+                    <h2 className="text-3xl font-black text-accent tracking-tight">Acceso Cliente</h2>
+                    <p className="text-secondary font-medium mt-2">Gestiona tu conexión de campo</p>
                 </div>
 
-                {error && <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg border border-red-100">{error}</div>}
+                <form onSubmit={handleLogin} className="space-y-6">
+                    <Input
+                        label="Número NIC"
+                        id="nic"
+                        value={nic}
+                        onChange={(e) => setNic(e.target.value)}
+                        placeholder="Introduce tu NIC"
+                        required
+                        error={error}
+                    />
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-primary text-white py-3 px-6 rounded-lg font-bold hover:bg-blue-700 transition-colors disabled:opacity-50 flex justify-center items-center"
-                >
-                    {loading ? 'Verificando...' : 'Iniciar Sesión'}
-                </button>
-            </form>
+                    <Button type="submit" disabled={loading || !nic}>
+                        {loading ? 'Validando...' : 'Entrar ahora'}
+                    </Button>
+                </form>
+
+                <p className="text-center text-xs text-secondary mt-8 leading-relaxed">
+                    Al ingresar, aceptas nuestra política de privacidad y términos de servicio de Electra.
+                </p>
+            </Card>
         </div>
     );
 };

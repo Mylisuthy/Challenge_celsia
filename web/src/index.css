@@ -2,16 +2,29 @@
 
 :root {
   --color-electra-blue: #004fb6;
-  --color-electra-gray: #f3f4f6;
-  --color-electra-dark: #1f2937;
+  --color-electra-light-blue: #ebf4ff;
+  --color-electra-gray: #718096;
+  --color-electra-light-gray: #f7fafc;
+  --color-electra-dark: #1a202c;
+  --color-electra-white: #ffffff;
 }
 
 @theme {
   --color-primary: var(--color-electra-blue);
+  --color-primary-light: var(--color-electra-light-blue);
   --color-secondary: var(--color-electra-gray);
+  --color-surface: var(--color-electra-light-gray);
   --color-accent: var(--color-electra-dark);
 }
 
-body {
-  @apply bg-gray-50 text-gray-900 font-sans;
+@layer base {
+  body {
+    @apply bg-surface text-accent font-sans antialiased;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+  }
 }

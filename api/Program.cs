@@ -12,6 +12,8 @@ var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults(worker =>
     {
         worker.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+        worker.UseMiddleware<JwtMiddleware>();
+        worker.UseMiddleware<SecurityHeadersMiddleware>();
     })
     .ConfigureServices((context, services) =>
     {
@@ -19,9 +21,13 @@ var host = new HostBuilder()
                             ?? Environment.GetEnvironmentVariable("DATABASE_PATH") 
                             ?? "fieldconnect.db";
         
+        var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? "fallback-secret-for-dev-only";
+        var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "FieldConnect";
+
         // Initialize Database if not exists
         InitializeDatabase(databasePath);
 
+        services.AddScoped<IAuthService>(sp => new AuthService(jwtSecret, jwtIssuer));
         services.AddScoped<FieldConnect.Api.Services.IValidationService, FieldConnect.Api.Services.ValidationService>();
         services.AddScoped<IAppointmentRepository>(sp => new AppointmentRepository(databasePath));
         services.AddScoped<IValidator<AppointmentDTO>, AppointmentValidator>();
