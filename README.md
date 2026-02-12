@@ -29,36 +29,31 @@ FieldConnect implementa un pipeline de middleware robusto que asegura cada trans
 
 ```mermaid
 sequenceDiagram
-    participant User as Usuario (Frontend)
-    participant Client as Axios (apiClient)
-    participant Pipe as JwtMiddleware (Backend)
-    participant Function as Azure Function (Trigger)
-    participant Service as ValidationService (Logic)
-    participant DB as SQLite Database
+    participant UI as Frontend (PWA)
+    participant API as Backend (Azure Serverless)
+    participant DB as Base de Datos (SQLite)
 
-    User->>Client: Solicita Agendar Cita
-    Client->>Client: Inyecta Bearer Token (LocalStorage)
-    Client->>Pipe: HTTP POST + JWT
-    Note over Pipe: Normaliza ruta y valida firma HMAC256
-    Pipe->>Pipe: Extrae Claims (UserId, Role)
+    Note over UI, API: Comunicación Segura (HTTPS + JWT)
+
+    UI->>API: Solicitar Cita (POST /schedule)
     
-    alt Token Válido
-        Pipe->>Function: Ejecución Concedida
-        Function->>Service: Validar Reglas (5 Días + Clustering)
+    API->>API: Verifica Token y Rol (Middleware)
+    
+    alt Autorizado
+        API->>API: Ejecuta Reglas de Negocio
+        Note right of API: 1. Anticipación > 5 días<br/>2. Mismo Bloque Semanal
         
-        alt Reglas Cumplidas
-            Service-->>Function: Datos Válidos
-            Function->>DB: Insertar Cita (Dapper)
-            DB-->>Function: Confirmación
-            Function-->>User: HTTP 200 OK + JSON
-        else Validación Fallida
-            Service-->>Function: Error de Regla
-            Function-->>User: HTTP 409 Conflict (Mensaje de Error)
+        alt Validación Exitosa
+            API->>DB: Persistir Cita
+            DB-->>API: Confirmación ID
+            API-->>UI: 200 OK (Cita Agendada)
+        else Error de Reglas
+            API-->>UI: 409 Conflict (Explicación)
         end
         
-    else Token Inválido / Expirado
-        Pipe-->>User: HTTP 401 Unauthorized
-        Note over User: Frontend dispara Logout automático
+    else No Autorizado
+        API-->>UI: 401 Unauthorized
+        UI->>UI: Cierre de Sesión Forzado
     end
 ```
 
