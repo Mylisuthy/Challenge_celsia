@@ -170,7 +170,7 @@ El backend utiliza **Azure Functions** en modo de ejecución aislada.
    cd api
    func start
    ```
-   *El sistema creará automáticamente el archivo `fieldconnect.db` e inicializará el esquema si no existen.*
+   *El sistema creará automáticamente el archivo `fieldconnect_secure.db` e inicializará el esquema si no existen.*
 
 ### 3. Configuración del Frontend (React + Vite)
 1. **Instalación**:
@@ -202,7 +202,7 @@ Para facilitar la evaluación de la plataforma, el sistema incluye los siguiente
 | Rol | NIC (Usuario) | Password | Permisos |
 | :--- | :--- | :--- | :--- |
 | **Administrador** | `ADMIN01` | `admin123` | Dashboard total, gestión de especialistas, reasignación. |
-| **Administrador** | `ADMIN02` | `admin456` | Acceso total administrativo. |
+| **Administrador** | `ADMIN02` | `admin123` | Acceso total administrativo. |
 | **Especialista** | `SPEC01` | `spec123` | Visualización de órdenes, cambio de estados técnicos. |
 | **Especialista** | `SPEC02` | `spec123` | Gestión de campo. |
 | **Usuario / Cliente**| `123456` | `pass123` | Agendamiento, historial personal, perfil. |
@@ -230,11 +230,11 @@ La plataforma cuenta con una suite de pruebas automatizadas que validan la lógi
 - **Diseño de Grado Corporativo**: UI premium en Tailwind v4 con soporte completo para la colorimetría de Electra S.A.
 - **Dockerización Nativa**: Archivo `Dockerfile` integrado para despliegue consistente en contenedores.
 - **Arquitectura Inyectable**: Refactorización del patrón repositorio para permitir aislamiento total en pruebas unitarias.
+- **Seguridad Robusta**: Implementación de **BCrypt** para el hashing de contraseñas y sanitización de inputs en el backend.
 
 ## Limitaciones Conocidas
 
 - **Persistencia en SQLite**: Dado el modelo serverless (Azure Functions), se recomienda escalar a Azure SQL en ambientes de producción con alta concurrencia.
-- **Seguridad de Passwords**: En esta versión MVP/Alpha, las contraseñas se almacenan sin hashing para facilitar el despliegue rápido; se debe integrar BCrypt en la siguiente fase.
 
 ---
 
