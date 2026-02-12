@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+:root {
+  --color-electra-blue: #004fb6;
+  --color-electra-gray: #f3f4f6;
+  --color-electra-dark: #1f2937;
+}
+
+@theme {
+  --color-primary: var(--color-electra-blue);
+  --color-secondary: var(--color-electra-gray);
+  --color-accent: var(--color-electra-dark);
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 font-sans;
+}
