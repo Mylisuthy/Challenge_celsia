@@ -33,3 +33,8 @@ yarn-error.log*
 *.swo
 
 ts.md
+errors_full.txt
+build_error.txt
+GenHash/
+GenHash.cs
+hashes.txt
