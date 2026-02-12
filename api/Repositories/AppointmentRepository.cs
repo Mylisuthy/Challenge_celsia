@@ -57,10 +57,11 @@ public class AppointmentRepository : IAppointmentRepository
 
     public async Task<User?> Login(string nic, string password)
     {
+        // Password verification is now handled in the Service/Function layer using BCrypt
         using var db = CreateConnection();
         return await db.QueryFirstOrDefaultAsync<User>(
-            "SELECT * FROM Users WHERE NIC = @nic AND Password = @password", 
-            new { nic, password });
+            "SELECT * FROM Users WHERE NIC = @nic", 
+            new { nic });
     }
 
     public async Task<User?> GetUserByEmail(string email)

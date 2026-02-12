@@ -9,6 +9,8 @@ namespace FieldConnect.Api.Services;
 public interface IAuthService
 {
     string GenerateToken(User user);
+    string HashPassword(string password);
+    bool VerifyPassword(string password, string hashedPassword);
 }
 
 public class AuthService : IAuthService
@@ -42,5 +44,15 @@ public class AuthService : IAuthService
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
+    }
+
+    public string HashPassword(string password)
+    {
+        return BCrypt.Net.BCrypt.HashPassword(password);
+    }
+
+    public bool VerifyPassword(string password, string hashedPassword)
+    {
+        return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
     }
 }

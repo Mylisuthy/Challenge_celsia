@@ -61,4 +61,32 @@ public class AuthServiceTests
         Assert.Equal("42", jwtToken.Claims.First(c => c.Type == "id").Value);
         Assert.Equal("ADMIN01", jwtToken.Claims.First(c => c.Type == "nic").Value);
     }
+
+    [Fact]
+    public void HashPassword_ShouldReturnValidBCryptHash()
+    {
+        var password = "securePassword";
+        var hash = _authService.HashPassword(password);
+        
+        Assert.StartsWith("$2a$", hash);
+        Assert.True(hash.Length > 0);
+    }
+
+    [Fact]
+    public void VerifyPassword_ShouldReturnTrue_ForCorrectPassword()
+    {
+        var password = "myPassword";
+        var hash = _authService.HashPassword(password);
+        
+        Assert.True(_authService.VerifyPassword(password, hash));
+    }
+
+    [Fact]
+    public void VerifyPassword_ShouldReturnFalse_ForIncorrectPassword()
+    {
+        var password = "myPassword";
+        var hash = _authService.HashPassword(password);
+        
+        Assert.False(_authService.VerifyPassword("wrongPassword", hash));
+    }
 }

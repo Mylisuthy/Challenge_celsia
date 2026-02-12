@@ -9,7 +9,7 @@ FieldConnect es una solución de grado empresarial para la orquestación de serv
 
 ---
 
-## 🛠 Especificaciones Técnicas
+## Especificaciones Técnicas
 
 | Capa | Tecnologías | Propósito e Implementación |
 | :--- | :--- | :--- |
@@ -22,7 +22,7 @@ FieldConnect es una solución de grado empresarial para la orquestación de serv
 
 ---
 
-## 🏗 Arquitectura del Sistema
+## Arquitectura del Sistema
 
 ### Flujo de Autenticación y Autorización
 FieldConnect implementa un pipeline de middleware robusto que asegura cada transacción antes de que llegue a la lógica de negocio.
@@ -87,7 +87,7 @@ erDiagram
     }
 ```
 
-### 🌐 Arquitectura de Despliegue (Cloud-Native)
+### Arquitectura de Despliegue (Cloud-Native)
 
 FieldConnect está diseñado para ejecutarse sobre la infraestructura global de **Azure**, aprovechando modelos de computación serverless para optimizar costos y escalabilidad.
 
@@ -105,7 +105,7 @@ graph TD
 
 ---
 
-## 📝 Product Backlog (User Stories)
+## Product Backlog (User Stories)
 
 1.  **Como Usuario final**, quiero poder **agendar citas técnicas** con al menos 5 días de anticipación, pudiendo agrupar múltiples visitas en la misma semana para mi conveniencia.
 2.  **Como Administrador**, quiero **gestionar el catálogo de especialistas** (crear, ver carga laboral) para asegurar que el equipo técnico esté correctamente distribuido.
@@ -114,7 +114,7 @@ graph TD
 
 ---
 
-## 📂 Organización del Proyecto
+## Organización del Proyecto
 
 ### Backend (`/api`)
 La arquitectura del backend sigue principios de **Clean Code** y **Repository Pattern**:
@@ -137,7 +137,7 @@ El frontend está diseñado bajo una estructura modular y reactiva:
 
 ---
 
-## 🛠 Prerrequisitos y Configuración Previa
+## Prerrequisitos y Configuración Previa
 
 Antes de iniciar la aplicación, asegúrate de tener instaladas las siguientes herramientas en tu sistema:
 
@@ -148,7 +148,7 @@ Antes de iniciar la aplicación, asegúrate de tener instaladas las siguientes h
 
 ---
 
-## 🚀 Guía Paso a Paso de Inicialización
+## Guía Paso a Paso de Inicialización
 
 Sigue estos pasos para configurar y ejecutar el ecosistema de **FieldConnect** en tu entorno local:
 
@@ -195,7 +195,7 @@ dotnet test tests/FieldConnect.Tests.csproj
 
 ---
 
-## 🔑 Credenciales de Prueba
+## Credenciales de Prueba
 
 Para facilitar la evaluación de la plataforma, el sistema incluye los siguientes usuarios semilla (seeds) con diferentes niveles de acceso:
 
@@ -210,7 +210,7 @@ Para facilitar la evaluación de la plataforma, el sistema incluye los siguiente
 
 ---
 
-## 🧪 Pruebas y QA
+## Pruebas y QA
 La plataforma cuenta con una suite de pruebas automatizadas que validan la lógica crítica de negocio:
 - **Pruebas de Repositorio**: Pruebas de integración con bases de datos temporales (SQLite).
 - **Pruebas de Servicio**: Validación de la generación y firma de tokens JWT.
@@ -223,7 +223,7 @@ La plataforma cuenta con una suite de pruebas automatizadas que validan la lógi
 
 ---
 
-## ✨ Elementos de Valor Agregado (Puntos Extra)
+## Elementos de Valor Agregado (Puntos Extra)
 
 - **Tests Unitarios Técnicos**: Suite integrada en XUnit que valida lógica de repositorio, inyección de dependencias y seguridad JWT.
 - **Validaciones UX en Tiempo Real**: Sistema de validación para agendamientos (bloqueo inteligente de fechas sin 5 días de anticipación y lógica de agrupación semanal).
@@ -231,7 +231,7 @@ La plataforma cuenta con una suite de pruebas automatizadas que validan la lógi
 - **Dockerización Nativa**: Archivo `Dockerfile` integrado para despliegue consistente en contenedores.
 - **Arquitectura Inyectable**: Refactorización del patrón repositorio para permitir aislamiento total en pruebas unitarias.
 
-## ⚠️ Limitaciones Conocidas
+## Limitaciones Conocidas
 
 - **Persistencia en SQLite**: Dado el modelo serverless (Azure Functions), se recomienda escalar a Azure SQL en ambientes de producción con alta concurrencia.
 - **Seguridad de Passwords**: En esta versión MVP/Alpha, las contraseñas se almacenan sin hashing para facilitar el despliegue rápido; se debe integrar BCrypt en la siguiente fase.

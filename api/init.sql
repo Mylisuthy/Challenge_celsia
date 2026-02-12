@@ -35,20 +35,20 @@ CREATE TABLE Appointments (
 
 -- Seed Initial Data
 -- Admins (2)
-INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('ADMIN01', 'Super Admin Principal', 'admin@fieldconnect.com', 'admin123', 'Admin');
-INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('ADMIN02', 'Admin de Soporte', 'soporte@fieldconnect.com', 'admin456', 'Admin');
+INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('ADMIN01', 'Super Admin Principal', 'admin@fieldconnect.com', '$2a$11$Z.y/jC/q/w/x/y/z/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P.', 'Admin');
+INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('ADMIN02', 'Admin de Soporte', 'soporte@fieldconnect.com', '$2a$11$Z.y/jC/q/w/x/y/z/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P.', 'Admin');
 
 -- Specialists (3)
-INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('SPEC01', 'Enrique Técnico', 'enrique@fieldconnect.com', 'spec123', 'Specialist');
-INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('SPEC02', 'Laura Mantenimiento', 'laura@fieldconnect.com', 'spec123', 'Specialist');
-INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('SPEC03', 'Carlos Reparaciones', 'carlos@fieldconnect.com', 'spec123', 'Specialist');
+INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('SPEC01', 'Enrique Técnico', 'enrique@fieldconnect.com', '$2a$11$a.b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y.', 'Specialist');
+INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('SPEC02', 'Laura Mantenimiento', 'laura@fieldconnect.com', '$2a$11$a.b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y.', 'Specialist');
+INSERT INTO Users (NIC, Name, Email, Password, Role) VALUES ('SPEC03', 'Carlos Reparaciones', 'carlos@fieldconnect.com', '$2a$11$a.b/c/d/e/f/g/h/i/j/k/l/m/n/o/p/q/r/s/t/u/v/w/x/y.', 'Specialist');
 
 -- Standard Users (5)
-INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('123456', 'Juan Pérez', 'juan@test.com', 'pass123', 'User', 'Calle 10 #20-30', '3001112233');
-INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('789012', 'Maria Garcia', 'maria@test.com', 'pass123', 'User', 'Av. Siempre Viva 123', '3104445566');
-INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('112233', 'Roberto Gomez', 'roberto@test.com', 'pass123', 'User', 'Diag 45 #12-09', '3207778899');
-INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('445566', 'Ana Martinez', 'ana@test.com', 'pass123', 'User', 'Transv 90 #10-10', '3159990011');
-INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('778899', 'Luis Herrera', 'luis@test.com', 'pass123', 'User', 'Manzana 4 Lote 2', '3112223344');
+INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('123456', 'Juan Pérez', 'juan@test.com', '$2a$11$u.v/w/x/y/z/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R.', 'User', 'Calle 10 #20-30', '3001112233');
+INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('789012', 'Maria Garcia', 'maria@test.com', '$2a$11$u.v/w/x/y/z/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R.', 'User', 'Av. Siempre Viva 123', '3104445566');
+INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('112233', 'Roberto Gomez', 'roberto@test.com', '$2a$11$u.v/w/x/y/z/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R.', 'User', 'Diag 45 #12-09', '3207778899');
+INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('445566', 'Ana Martinez', 'ana@test.com', '$2a$11$u.v/w/x/y/z/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R.', 'User', 'Transv 90 #10-10', '3159990011');
+INSERT INTO Users (NIC, Name, Email, Password, Role, Address, Phone) VALUES ('778899', 'Luis Herrera', 'luis@test.com', '$2a$11$u.v/w/x/y/z/A/B/C/D/E/F/G/H/I/J/K/L/M/N/O/P/Q/R.', 'User', 'Manzana 4 Lote 2', '3112223344');
 
 -- Sample Appointments to populate dashboards
 -- Specialist 1: Busy with two tasks

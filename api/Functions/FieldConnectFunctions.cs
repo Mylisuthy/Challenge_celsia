@@ -46,7 +46,7 @@ public class FieldConnectFunctions
         }
 
         var user = await _repository.Login(body.NIC, body.Password);
-        if (user == null)
+        if (user == null || !_authService.VerifyPassword(body.Password, user.Password))
         {
             var unauthorized = req.CreateResponse(HttpStatusCode.Unauthorized);
             await unauthorized.WriteAsJsonAsync(new { Message = "Credenciales inválidas." });
@@ -126,6 +126,7 @@ public class FieldConnectFunctions
         }
 
         user.Role = UserRoles.User; // Default for public register
+        user.Password = _authService.HashPassword(user.Password);
         await _repository.CreateUser(user);
         return req.CreateResponse(HttpStatusCode.Created);
     }
@@ -185,6 +186,7 @@ public class FieldConnectFunctions
         }
 
         user.Role = UserRoles.Specialist;
+        user.Password = _authService.HashPassword(user.Password);
         
         try 
         {
