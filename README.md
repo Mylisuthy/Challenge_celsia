@@ -33,18 +33,29 @@ sequenceDiagram
     participant Client as Axios (apiClient)
     participant Pipe as JwtMiddleware (Backend)
     participant Function as Azure Function (Trigger)
+    participant Service as ValidationService (Logic)
     participant DB as SQLite Database
 
-    User->>Client: Solicita Acción (ej. Agendar)
+    User->>Client: Solicita Agendar Cita
     Client->>Client: Inyecta Bearer Token (LocalStorage)
     Client->>Pipe: HTTP POST + JWT
     Note over Pipe: Normaliza ruta y valida firma HMAC256
     Pipe->>Pipe: Extrae Claims (UserId, Role)
+    
     alt Token Válido
         Pipe->>Function: Ejecución Concedida
-        Function->>DB: Operación de Datos (Dapper)
-        DB-->>Function: Datos del Sistema
-        Function-->>User: HTTP 200 OK + JSON
+        Function->>Service: Validar Reglas (5 Días + Clustering)
+        
+        alt Reglas Cumplidas
+            Service-->>Function: Datos Válidos
+            Function->>DB: Insertar Cita (Dapper)
+            DB-->>Function: Confirmación
+            Function-->>User: HTTP 200 OK + JSON
+        else Validación Fallida
+            Service-->>Function: Error de Regla
+            Function-->>User: HTTP 409 Conflict (Mensaje de Error)
+        end
+        
     else Token Inválido / Expirado
         Pipe-->>User: HTTP 401 Unauthorized
         Note over User: Frontend dispara Logout automático
@@ -57,24 +68,27 @@ La base de datos SQLite está estructurada para soportar múltiples roles y una 
 ```mermaid
 erDiagram
     USER ||--o{ APPOINTMENT : "registra_como_cliente"
-    USER ||--o{ APPOINTMENT : "atiente_como_especialista"
+    USER ||--o{ APPOINTMENT : "atiende_como_especialista"
     
     USER {
         int Id PK
-        string NIC "Unique ID"
+        string NIC "Unique ID (Admin/User)"
         string Name "Nombre Completo"
         string Role "Admin | Specialist | User"
         string Email "Unique contact"
         string Password "Hash de seguridad"
+        string Address "Dirección Física"
+        string Phone "Teléfono de Contacto"
     }
 
     APPOINTMENT {
         int Id PK
         int CustomerId FK "Cliente solicitante"
         int SpecialistId FK "Técnico asignado"
-        string Date "ISO Date"
-        string Slot "AM | PM"
-        string Status "Pending | Active | Completada | Cancelada"
+        string Date "Fecha (YYYY-MM-DD)"
+        string Slot "Jornada (AM | PM)"
+        string Time "Hora Específica (HH:MM)"
+        string Status "Pending | Active | EnCamino | Completada | Cancelada"
     }
 ```
 
