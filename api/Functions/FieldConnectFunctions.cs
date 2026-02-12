@@ -4,6 +4,7 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using FieldConnect.Api.Models;
 using FieldConnect.Api.Repositories;
+using FieldConnect.Api.Services;
 using FluentValidation;
 
 namespace FieldConnect.Api.Functions;
