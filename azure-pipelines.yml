@@ -13,10 +13,10 @@ steps:
     packageType: 'sdk'
     version: '9.x'
 
-- script: dotnet restore
+- script: dotnet restore FieldConnect.sln
   displayName: 'Restore dependencies'
 
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build FieldConnect.sln --configuration $(buildConfiguration)
   displayName: 'Build project'
 
 - script: dotnet test tests/FieldConnect.Tests.csproj --logger trx
