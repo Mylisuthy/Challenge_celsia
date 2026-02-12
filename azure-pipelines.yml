@@ -1,3 +1,4 @@
+# Build Trigger: Fixed Solution Root and Project Paths
 trigger:
 - main
 
