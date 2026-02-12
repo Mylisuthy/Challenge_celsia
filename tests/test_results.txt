@@ -1,0 +1,29 @@
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+  WorkerExtensions -> C:\Users\MSUTHY\Desktop\Challenge_Devops\api\obj\Debug\net9.0\WorkerExtensions\buildout\Microsoft.Azure.Functions.Worker.Extensions.dll
+  FieldConnect.Api -> C:\Users\MSUTHY\Desktop\Challenge_Devops\api\bin\Debug\net9.0\FieldConnect.Api.dll
+  FieldConnect.Tests -> C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\bin\Debug\net9.0\FieldConnect.Tests.dll
+Serie de pruebas para C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\bin\Debug\net9.0\FieldConnect.Tests.dll (.NETCoreApp,Version=v9.0)
+Versión 17.14.1 (x64) de VSTest
+
+Iniciando la ejecución de pruebas, espere...
+1 archivos de prueba en total coincidieron con el patrón especificado.
+[xUnit.net 00:00:00.13]     FieldConnect.Tests.RepositoryTests.GetSpecialistWithLeastWork_ShouldReturnAvailableSpecialist [FAIL]
+  Con error FieldConnect.Tests.RepositoryTests.GetSpecialistWithLeastWork_ShouldReturnAvailableSpecialist [27 ms]
+  Mensaje de error:
+   Microsoft.Data.Sqlite.SqliteException : SQLite Error 19: 'NOT NULL constraint failed: Appointments.CustomerId'.
+  Seguimiento de la pila:
+     at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) in /_/Dapper/SqlMapper.cs:line 2965
+   at Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) in /_/Dapper/SqlMapper.cs:line 656
+   at Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) in /_/Dapper/SqlMapper.cs:line 527
+   at FieldConnect.Tests.RepositoryTests.GetSpecialistWithLeastWork_ShouldReturnAvailableSpecialist() in C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\RepositoryTests.cs:line 85
+--- End of stack trace from previous location ---
+
+Con error! - Con error:     1, Superado:     7, Omitido:     0, Total:     8, Duración: 36 ms - FieldConnect.Tests.dll (net9.0)

@@ -1,0 +1,13 @@
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+  WorkerExtensions -> C:\Users\MSUTHY\Desktop\Challenge_Devops\api\obj\Debug\net9.0\WorkerExtensions\buildout\Microsoft.Azure.Functions.Worker.Extensions.dll
+  FieldConnect.Api -> C:\Users\MSUTHY\Desktop\Challenge_Devops\api\bin\Debug\net9.0\FieldConnect.Api.dll
+  FieldConnect.Tests -> C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\bin\Debug\net9.0\FieldConnect.Tests.dll
+
+Compilación correcta.
+    0 Advertencia(s)
+    0 Errores
+
+Tiempo transcurrido 00:00:02.27

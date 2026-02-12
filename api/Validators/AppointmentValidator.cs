@@ -9,7 +9,8 @@ public class AppointmentValidator : AbstractValidator<AppointmentDTO>
     {
         RuleFor(x => x.NIC).NotEmpty().MinimumLength(5);
         RuleFor(x => x.Date).NotEmpty().Matches(@"^\d{4}-\d{2}-\d{2}$")
-            .Must(validationService.IsDateValid).WithMessage("La cita debe programarse con al menos 15 días de anticipación.");
+            .Must(validationService.IsDateValid).WithMessage("La cita debe programarse con al menos 5 días de anticipación.");
         RuleFor(x => x.Slot).NotEmpty().Must(s => s == "AM" || s == "PM");
+        RuleFor(x => x.Time).NotEmpty().Matches(@"^([01]\d|20):00$").WithMessage("La hora debe ser entre las 08:00 y las 20:00.");
     }
 }

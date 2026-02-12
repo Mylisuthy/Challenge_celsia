@@ -21,7 +21,7 @@ steps:
   displayName: 'Build project'
 
 - script: dotnet test tests/FieldConnect.Tests.csproj --logger trx
-  displayName: 'Run Unit Tests (15-day rule validation)'
+  displayName: 'Run Unit Tests (5-day rule validation)'
 
 - task: PublishTestResults@2
   condition: succeededOrFailed()

@@ -1,25 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --color-electra-blue: #004fb6;
-  --color-electra-light-blue: #ebf4ff;
-  --color-electra-gray: #718096;
-  --color-electra-light-gray: #f7fafc;
-  --color-electra-dark: #1a202c;
+  --color-electra-navy: #1e293b;
+  --color-electra-teal: #10b981;
+  --color-electra-light-teal: #ecfdf5;
+  --color-electra-gray: #64748b;
+  --color-electra-light-gray: #f8fafc;
   --color-electra-white: #ffffff;
 }
 
 @theme {
-  --color-primary: var(--color-electra-blue);
-  --color-primary-light: var(--color-electra-light-blue);
+  --color-primary: var(--color-electra-teal);
+  --color-primary-light: var(--color-electra-light-teal);
   --color-secondary: var(--color-electra-gray);
   --color-surface: var(--color-electra-light-gray);
-  --color-accent: var(--color-electra-dark);
+  --color-accent: var(--color-electra-navy);
 }
 
 @layer base {
+
+  html,
   body {
-    @apply bg-surface text-accent font-sans antialiased;
+    @apply h-full overflow-x-hidden;
+  }
+
+  body {
+    @apply bg-surface text-accent font-sans antialiased min-h-screen;
   }
 }
 

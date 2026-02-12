@@ -23,14 +23,18 @@ public class GlobalExceptionHandlerMiddleware : IFunctionsWorkerMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An unhandled exception occurred.");
+            _logger.LogError(ex, "Error fatal capturado en Middleware: {Message}", ex.Message);
 
-            var request = await context.GetHttpRequestDataAsync();
-            if (request != null)
+            var response = await context.GetHttpRequestDataAsync();
+            if (response != null)
             {
-                var response = request.CreateResponse(HttpStatusCode.InternalServerError);
-                await response.WriteAsJsonAsync(new { Error = "An internal server error occurred.", Details = ex.Message });
-                context.GetInvocationResult().Value = response;
+                var errorResponse = response.CreateResponse(HttpStatusCode.InternalServerError);
+                await errorResponse.WriteAsJsonAsync(new { 
+                    Error = "Internal Server Error", 
+                    Detail = ex.Message,
+                    StackTrace = ex.StackTrace 
+                });
+                context.GetInvocationResult().Value = errorResponse;
             }
         }
     }

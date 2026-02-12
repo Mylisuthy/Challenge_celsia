@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
@@ -29,12 +30,15 @@ public class JwtMiddleware : IFunctionsWorkerMiddleware
             return;
         }
 
-        // Only validate for protected routes (e.g., schedule)
-        if (!request.Url.AbsolutePath.Contains("/api/schedule"))
+        // List of public routes that DO NOT require JWT
+        string path = request.Url.AbsolutePath.ToLower();
+        if (path.Contains("/api/login") || path.Contains("/api/register"))
         {
             await next(context);
             return;
         }
+
+        // All other routes are protected
 
         var token = request.Headers.TryGetValues("Authorization", out var values) 
                     ? values.FirstOrDefault()?.Split(" ").Last() 
@@ -62,7 +66,10 @@ public class JwtMiddleware : IFunctionsWorkerMiddleware
             }, out SecurityToken validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
-            context.Items.Add("User", jwtToken.Claims);
+            
+            // Add ID, NIC and ROLE to context
+            context.Items.Add("UserId", jwtToken.Claims.First(x => x.Type == "id").Value);
+            context.Items.Add("UserRole", jwtToken.Claims.First(x => x.Type == "role").Value);
             
             await next(context);
         }

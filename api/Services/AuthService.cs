@@ -8,7 +8,7 @@ namespace FieldConnect.Api.Services;
 
 public interface IAuthService
 {
-    string GenerateToken(Customer customer);
+    string GenerateToken(User user);
 }
 
 public class AuthService : IAuthService
@@ -22,7 +22,7 @@ public class AuthService : IAuthService
         _issuer = issuer;
     }
 
-    public string GenerateToken(Customer customer)
+    public string GenerateToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_secret);
@@ -30,9 +30,10 @@ public class AuthService : IAuthService
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim("id", customer.Id.ToString()),
-                new Claim("nic", customer.NIC),
-                new Claim("name", customer.Name)
+                new Claim("id", user.Id.ToString()),
+                new Claim("nic", user.NIC ?? ""),
+                new Claim("name", user.Name),
+                new Claim("role", user.Role)
             }),
             Expires = DateTime.UtcNow.AddDays(7),
             Issuer = _issuer,

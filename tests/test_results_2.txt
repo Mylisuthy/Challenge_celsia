@@ -1,0 +1,16 @@
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+  WorkerExtensions -> C:\Users\MSUTHY\Desktop\Challenge_Devops\api\obj\Debug\net9.0\WorkerExtensions\buildout\Microsoft.Azure.Functions.Worker.Extensions.dll
+  FieldConnect.Api -> C:\Users\MSUTHY\Desktop\Challenge_Devops\api\bin\Debug\net9.0\FieldConnect.Api.dll
+C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\RepositoryTests.cs(15,12): warning CS8618: El elemento campo "_repository" que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador "required'"o declarar el campo como un valor que acepta valores NULL. [C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\FieldConnect.Tests.csproj]
+C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\RepositoryTests.cs(13,44): warning CS0169: El campo 'RepositoryTests._repository' nunca se usa [C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\FieldConnect.Tests.csproj]
+  FieldConnect.Tests -> C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\bin\Debug\net9.0\FieldConnect.Tests.dll
+Serie de pruebas para C:\Users\MSUTHY\Desktop\Challenge_Devops\tests\bin\Debug\net9.0\FieldConnect.Tests.dll (.NETCoreApp,Version=v9.0)
+Versión 17.14.1 (x64) de VSTest
+
+Iniciando la ejecución de pruebas, espere...
+1 archivos de prueba en total coincidieron con el patrón especificado.
+
+Correctas! - Con error:     0, Superado:     8, Omitido:     0, Total:     8, Duración: 34 ms - FieldConnect.Tests.dll (net9.0)

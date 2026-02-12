@@ -7,6 +7,7 @@ using FluentValidation;
 using FieldConnect.Api.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
+using FieldConnect.Api.Services;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults(worker =>
@@ -21,11 +22,18 @@ var host = new HostBuilder()
                             ?? Environment.GetEnvironmentVariable("DATABASE_PATH") 
                             ?? "fieldconnect.db";
         
+        Console.WriteLine($"[INFO] Usando Base de Datos en: {Path.GetFullPath(databasePath)}");
+
         var jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET") ?? "fallback-secret-for-dev-only";
         var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "FieldConnect";
 
         // Initialize Database if not exists
-        InitializeDatabase(databasePath);
+        try {
+            InitializeDatabase(databasePath);
+            Console.WriteLine("[INFO] Base de Datos Inicializada.");
+        } catch (Exception ex) {
+            Console.WriteLine($"[ERROR] Error inicializando DB: {ex.Message}");
+        }
 
         services.AddScoped<IAuthService>(sp => new AuthService(jwtSecret, jwtIssuer));
         services.AddScoped<FieldConnect.Api.Services.IValidationService, FieldConnect.Api.Services.ValidationService>();
